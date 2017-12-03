@@ -57,7 +57,7 @@ function DiscordTCPObject::onDisconnect(%this) {
 
 function DiscordTCPObject::onLine(%this, %line) {
 	if(trim(getField(%line, 0)) $= "Connected.") {
-		messageAll('', "<color:7289da>A bridge between this server and a Discord channel has been established. <color:ffffff>Use '@di' to communicate over it.");
+		//messageAll('', "<color:7289da>A bridge between this server and a Discord channel has been established. <color:ffffff>Use '@di' to communicate over it.");
 		return;
 	}
 
@@ -164,12 +164,8 @@ function GameConnection::getDRank(%this) {
 
 package DiscordBridgePackage {
 	function serverCmdMessageSent(%client, %msg) {
-		if(getSubStr(%msg, 0, 3) $= "@di") {
-			%words = getWords(%msg, 1);
-			if(trim(%words) !$= "" && !%client.isSpamming) {
-				DiscordTCPLines.send("chat" TAB $Pref::Server::Name TAB $Pref::Server::Port TAB %client.name SPC "(" @ %client.bl_id @ ")" TAB %words  @ "\r\n");
-			}
-		}
+		if(!%client.isSpamming)
+			DiscordTCPLines.send("chat" TAB $Pref::Server::Name TAB $Pref::Server::Port TAB %client.name SPC "(" @ %client.bl_id @ ")" TAB %msg  @ "\r\n");
 
 		return parent::serverCmdMessageSent(%client, %msg);
 	}
@@ -182,7 +178,7 @@ package DiscordBridgePackage {
 		%this.connectedAt = $Sim::Time;
 
 		DiscordTCPLines.send("connect" TAB $Pref::Server::Name TAB $Pref::Server::Port TAB %this.name SPC "(" @ %this.bl_id @ ")\r\n");
-		messageClient(%this, '', "Use '@di' to talk to the connected Discord guild.");
+		//messageClient(%this, '', "Use '@di' to talk to the connected Discord guild.");
 
 		DiscordTCPLines.send("topic" TAB $Pref::Server::Name TAB $Pref::Server::Port TAB ClientGroup.getCount() TAB $Pref::Server::MaxPlayers TAB getDTimestamp($Sim::Time) @ "\r\n");
 
@@ -193,7 +189,7 @@ package DiscordBridgePackage {
 		if(%this.bl_id $= "") {
 			return parent::autoAdminCheck(%this);
 		}
-		
+
 		DiscordTCPLines.send("disconnect" TAB $Pref::Server::Name TAB $Pref::Server::Port TAB %this.name SPC "(" @ %this.bl_id @ ")\r\n");
 
 		DiscordTCPLines.send("topic" TAB $Pref::Server::Name TAB $Pref::Server::Port TAB ClientGroup.getCount()-1 TAB $Pref::Server::MaxPlayers TAB getDTimestamp($Sim::Time) @ "\r\n");
