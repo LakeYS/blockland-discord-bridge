@@ -81,9 +81,9 @@ net.createServer(function(socket) {
 		}
 
 		switch(cmd) {
-			case "new":
-				var msg_send = ":white_check_mark: **" + serv + "** has come online.";
-				break;
+			//case "new":
+			//	var msg_send = ":white_check_mark: **" + serv + "** has come online.";
+			//	break;
 
 			case "chat":
 				var who = parts[3];
@@ -149,7 +149,7 @@ net.createServer(function(socket) {
 
 	socket.on('end', function () {
 		var channel = bot.channels.get(settings.channels.bridge[socket.lastKnownPort.toString()]);
-		channel.send(":warning: **" + socket.lastKnownServ + "** may have just went down.");
+		//channel.send(":warning: **" + socket.lastKnownServ + "** may have just went down.");
 
 		TCPclients.splice(TCPclients.indexOf(socket), 1);
 	});
@@ -209,7 +209,7 @@ bot.on('message', function(message) {
 						);
 					}
 				});
-				
+
 				tab.sort(function(a, b) {
 					return b[2] - a[2];
 				});
@@ -226,7 +226,7 @@ bot.on('message', function(message) {
 			if(!permission) {
 				return;
 			}
-			
+
 			if(global) {
 				writeGlobal(parts[0].replace("!", "") + "\t" + name + "\t" + parts.slice(1).join(" ") + "\r\n");
 				return;
@@ -291,7 +291,7 @@ bot.on('message', function(message) {
 			} else {
 				var reason = parts[3];
 			}
-			
+
 			if(global) {
 				writeGlobal(parts[0].replace("!", "") + "\t" + name + "\t" + [bl_id, time, reason].join("\t") + "\r\n");
 				return;
