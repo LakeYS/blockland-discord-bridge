@@ -1,6 +1,8 @@
 # Blockland Discord Bridge
 This is a Discord bridge for Blockland that allows the players in a server to communicate with Discord, and vice versa.
 
+See also: [Brikkit Discord Bridge](https://github.com/LakeYS/Brikkit-Discord-Bridge) - A Discord bridge for Brickadia.
+
 # Setup
 Detailed setup instructions coming soon.
 
