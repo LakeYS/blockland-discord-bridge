@@ -201,4 +201,5 @@ package DiscordBridgePackage {
 		parent::onServerDestroyed();
 	}
 };
+deactivatePackage(DiscordBridgePackage);
 activatePackage(DiscordBridgePackage);
